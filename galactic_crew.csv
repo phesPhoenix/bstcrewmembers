@@ -1,0 +1,16 @@
+callsign,role,home_base,level,missions
+Nova,Navigator,Europa,7,18
+Atlas,Engineer,Mars,8,24
+Orion,Pilot,Titan,6,15
+Echo,Scientist,Luna,5,11
+Lyra,Medic,Venus Station,7,19
+Zenith,Commander,Ganymede,10,41
+Comet,Robotics,Mars,4,9
+Juno,Geologist,Ceres,6,14
+Raven,Security,Titan,8,27
+Blaze,Mechanic,Luna,5,12
+Kestrel,Pilot,Europa,9,32
+Pulse,Communications,Mercury Station,4,8
+Sol,Astrobiologist,Mars,7,21
+Drift,Surveyor,Ceres,3,6
+Vega,Engineer,Ganymede,8,29
