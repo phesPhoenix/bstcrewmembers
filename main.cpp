@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include "BST.h"
-#include "Token.h"
+#include "tokenizer/ftokenize.h"
 using namespace std;
 
 
