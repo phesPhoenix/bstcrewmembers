@@ -14,21 +14,21 @@ BST::BST() {
 // INSERT
 // --------------------------------------------------
 
-BST::Node* BST::insert(Node* node, std::string callsign) {
+BST::Node* BST::insert(Node* node, CrewMember crew) {
 
     // We found an empty position
     if (node == nullptr) {
-        return new Node(callsign);
+        return new Node(crew);
     }
 
     // Smaller keys go left
-    if (callsign < node->callsign) {
-        node->left = insert(node->left, callsign);
+    if (crew.callsign < node->data.callsign) {
+        node->left = insert(node->left, crew);
     }
 
     // Larger keys go right
-    else if (callsign > node->callsign) {
-        node->right = insert(node->right, callsign);
+    else if (crew.callsign > node->data.callsign) {
+        node->right = insert(node->right, crew);
     }
 
     return node;
@@ -36,8 +36,8 @@ BST::Node* BST::insert(Node* node, std::string callsign) {
 
 
 // Public insert function
-void BST::insert(std::string callsign) {
-    root = insert(root, callsign);
+void BST::insert(CrewMember crew) {
+    root = insert(root, crew);
 }
 
 
@@ -53,12 +53,12 @@ BST::Node* BST::search(Node* node, std::string callsign) {
     }
 
     // Key was found
-    if (callsign == node->callsign) {
+    if (callsign == node->data.callsign) {
         return node;
     }
 
     // Search left subtree
-    if (callsign < node->callsign) {
+    if (callsign < node->data.callsign) {
         return search(node->left, callsign);
     }
 
@@ -68,14 +68,22 @@ BST::Node* BST::search(Node* node, std::string callsign) {
 
 
 // Public search function
-bool BST::search(std::string callsign) {
-    return search(root, callsign) != nullptr;
+CrewMember* BST::search(std::string callsign) {
+
+    Node* node = search(root, callsign);
+
+    if (node == nullptr) {
+        return nullptr;
+    }
+
+    return &node->data;
 }
 
 
 // --------------------------------------------------
 // IN-ORDER TRAVERSAL
 // --------------------------------------------------
+
 
 void BST::inorder(Node* node) {
 
@@ -85,7 +93,11 @@ void BST::inorder(Node* node) {
 
     inorder(node->left);
 
-    cout << node->callsign << " ";
+    cout << node->data.callsign << " | "
+         << node->data.role << " | "
+         << node->data.home_base << " | Level "
+         << node->data.level << " | Missions "
+         << node->data.missions << endl;
 
     inorder(node->right);
 }
@@ -121,10 +133,10 @@ std::string BST::findMin() {
     Node* node = findMin(root);
 
     if (node == nullptr) {
-        return 0;
+        return "";
     }
 
-    return node->callsign;
+    return node->data.callsign;
 }
 
 
@@ -151,8 +163,8 @@ std::string BST::findMax() {
     Node* node = findMax(root);
 
     if (node == nullptr) {
-        return 0;
+        return "";
     }
 
-    return node->callsign;
+    return node->data.callsign;
 }

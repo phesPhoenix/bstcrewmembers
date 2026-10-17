@@ -1,11 +1,5 @@
-bst: main.o BST.o
-	g++ main.o BST.o -o bst
-
-main.o: main.cpp BST.h
-	g++ -c main.cpp
-
-BST.o: BST.cpp BST.h
-	g++ -c BST.cpp
+bst: *.cpp *.h tokenizer/*.cpp tokenizer/*.h
+	g++ *.cpp tokenizer/*.cpp -o bst
 
 clean:
-	rm -f *.o bst
+	rm -f bst

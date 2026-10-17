@@ -4,24 +4,39 @@
 #include <sstream>
 #include <string>
 #include "BST.h"
-
+#include "Token.h"
 using namespace std;
 
 
 
 
 int main() {
-    
     BST tree;
+    FTokenizer file("galactic_crew.csv");
+    vector<string> row;
+    bool header = true;
 
-    // Insert keys
-    tree.insert("Nova");
-    tree.insert("Atlas");
-    tree.insert("Orion");
-    tree.insert("Echo");
-    tree.insert("Lyra");
-    tree.insert("Zenith");
-    tree.insert("Comet");
+    while (file.next_csv_row(row)) {
+        if (header) {
+            header = false;
+            continue;
+        }
+        // Skip rows without the expected columns.
+        if (row.size() != 5) {
+            continue;
+        }
+        
+
+        CrewMember crew;
+        crew.callsign  = row[0];
+        crew.role      = row[1];
+        crew.home_base = row[2];
+        crew.level     = stoi(row[3]);
+        crew.missions  = stoi(row[4]);
+        tree.insert(crew);
+    }
+
+   
 
     cout << "In-order traversal:" << endl;
     tree.inorder();
@@ -29,25 +44,24 @@ int main() {
     cout << endl;
 
     // Search
-    cout << "Search for Nova: ";
+    string callsign;
+    cout << "Enter a callsign to search: ";
+    getline(cin, callsign);
 
-    if (tree.search("Nova")) {
-        cout << "Found" << endl;
+    CrewMember* found = tree.search(callsign);
+
+    if (found != nullptr) {
+        cout << found->callsign << " | "
+             << found->role << " | "
+             << found->home_base << " | Level "
+             << found->level << " | Missions "
+             << found->missions << endl;
     }
     else {
-        cout << "Not found" << endl;
+        cout << "No crew member with callsign \"" << callsign << "\"" << endl;
     }
 
-
-    cout << "Search for PhePhe: ";
-
-    if (tree.search("Phe")) {
-        cout << "Found" << endl;
-    }
-    else {
-        cout << "Not found" << endl;
-    }
-
+    cout << endl;
 
     cout << endl;
 

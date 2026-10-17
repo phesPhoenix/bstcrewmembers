@@ -38,7 +38,7 @@ private:
 
     // Recursive helper functions
     Node* insert(Node* node, CrewMember crew);
-    Node* search(Node* node, CrewMember crew);
+    Node* search(Node* node, std::string callsign);
     void inorder(Node* node);
 
     Node* findMin(Node* node);
@@ -55,8 +55,8 @@ public:
 
     void inorder();
 
-   CrewMember* findMin();
-   CrewMember* findMax();
+   std::string findMin();
+   std::string findMax();
 };
 
 #endif
